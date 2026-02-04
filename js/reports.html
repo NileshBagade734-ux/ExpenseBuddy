@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reports & Analytics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/reports.css">
+</head>
+
+<body>
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <h2>Expense Buddy</h2>
+      <p>Track Smarter</p>
+    </div>
+
+ <nav class="nav-list">
+  <div class="nav-item">
+    <a href="dashboard.html">
+      <i data-lucide="layout-grid"></i> Dashboard
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="add-Transaction.html">
+      <i data-lucide="plus"></i> Add Transaction
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="transaction.html">
+      <i data-lucide="list"></i> Transactions
+    </a>
+  </div>
+
+  <div class="nav-item active">
+    <a href="reports.html">
+      <i data-lucide="pie-chart"></i> Reports
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="budgets.html">
+      <i data-lucide="target"></i> Budgets
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="goals.html">
+      <i data-lucide="trending-up"></i> Goals
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="alerts.html">
+      <i data-lucide="bell"></i> Alerts
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="categories.html">
+      <i data-lucide="tag"></i> Categories
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="export.html">
+      <i data-lucide="download"></i> Export
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="settings.html">
+      <i data-lucide="settings"></i> Settings
+    </a>
+  </div>
+</nav>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- TOP NAV -->
+    <header class="top-nav">
+      <p>Welcome back!</p>
+      <div class="user-pill">
+        <div class="user-text">
+          <b>User</b>
+          <small>user@email.com</small>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <h1>Reports & Analytics</h1>
+    <p>Visualize your financial data</p>
+
+    <!-- STATS -->
+    <div class="grid grid-4">
+      <div class="card">
+        <div class="stat-title">Total Income</div>
+        <div class="stat-value green" id="totalIncome">$0.00</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-title">Total Expenses</div>
+        <div class="stat-value red" id="totalExpense">$0.00</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-title">Avg. Income</div>
+        <div class="stat-value green" id="avgIncome">$0.00</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-title">Avg. Expense</div>
+        <div class="stat-value red" id="avgExpense">$0.00</div>
+      </div>
+    </div>
+
+    <!-- LINE CHART -->
+    <div class="card">
+      <h3>Monthly Income vs Expenses</h3>
+      <canvas id="lineChart"></canvas>
+    </div>
+
+    <!-- PIE + BAR -->
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Spending by Category</h3>
+        <canvas id="pieChart"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Category Comparison</h3>
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- JS -->
+<script src="reports.js"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

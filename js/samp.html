@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Transactions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+
+    * { box-sizing: border-box; font-family: Inter, system-ui, sans-serif; }
+    body { background: #f7f8fa; margin: 0; padding: 24px; color: #1f2937; }
+    h1 { margin-bottom: 4px; }
+    p { color: #6b7280; margin-top: 0; }
+    
+/* =====================
+   SIDEBAR
+===================== */:root {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --bg-main: #f7f8fa;
+  --bg-white: #ffffff;
+  --border: #e5e7eb;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --green: #10b981;
+  --red: #ef4444;
+  --radius: 14px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  width: 260px;
+  position: fixed;
+  height: 100vh;
+  background: var(--bg-white);
+  border-right: 1px solid var(--border);
+  padding: 24px 18px;
+}
+
+.logo-area h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.logo-area p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.nav-list {
+  margin-top: 32px;
+}
+
+.nav-item {
+  margin-bottom: 6px;
+}
+
+.nav-item a {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 10px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.25s;
+}
+
+.nav-item a:hover {
+  background: #f1f5f9;
+  color: var(--text-main);
+}
+
+.nav-item.active a {
+  background: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ================= MAIN ================= */
+.main-content {
+  margin-left: 260px;
+  padding: 24px 32px;
+}
+
+/* ================= TOP NAV ================= */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-white);
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+.user-text small {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* ================= HEADERS ================= */
+.welcome-header {
+  margin-bottom: 20px;
+}
+
+h1 {
+  margin: 0;
+}
+
+p {
+  color: var(--text-muted);
+}
+
+/* ================= CARDS ================= */
+.card {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  padding: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* ================= INPUTS ================= */
+input, select, textarea {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* ================= TRANSACTIONS ================= */
+.transaction-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+  transition: 0.25s;
+}
+
+.transaction-row:hover {
+  background: #f8fafc;
+}
+
+.transaction-row small {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.text-green {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.text-red {
+  color: var(--red);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.actions i {
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: 0.2s;
+}
+
+.actions i:hover {
+  color: var(--primary);
+}
+
+/* ================= BUTTONS ================= */
+button {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+button:hover {
+  background: var(--primary-dark);
+}
+
+button.outline {
+  background: white;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+}
+
+/* ================= MODAL ================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background: var(--bg-white);
+  width: 100%;
+  max-width: 420px;
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.modal-header {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ================= EMPTY ================= */
+.empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 40px;
+}
+
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .modal-header {
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+    
+<div class="layout">
+    <aside class="sidebar">
+        <div class="logo-area">
+            <h2>Expense Buddy</h2>
+            <p>Track Smarter</p>
+        </div>
+        <nav class="nav-list">
+       <div class="nav-item ">
+    <a href="dashboard.html">
+        <i data-lucide="layout-grid"></i> Dashboard
+    </a>
+</div>
+
+<div class="nav-item" onclick="openModal()">
+     <a href="add-Transaction.html">
+        <i data-lucide="plus"></i> Add Transaction
+    </a>
+  
+</div>
+
+<div class="nav-item active">
+    <a href="transaction.html">
+        <i data-lucide="list"></i> Transactions
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="reports.html">
+        <i data-lucide="pie-chart"></i> Reports
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="budgets.html">
+        <i data-lucide="target"></i> Budgets
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="goals.html">
+        <i data-lucide="trending-up"></i> Goals
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="alerts.html">
+        <i data-lucide="bell"></i> Alerts
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="categories.html">
+        <i data-lucide="tag"></i> Categories
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="export.html">
+        <i data-lucide="download"></i> Export
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="settings.html">
+        <i data-lucide="settings"></i> Settings
+    </a>
+</div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+     <header class="top-nav">
+    <p id="topNavWelcome" style="font-size: 0.9rem; font-weight: 500;">
+        Welcome back!
+    </p>
+
+    <div class="user-pill">
+        <i data-lucide="bell" style="width: 18px; color: var(--text-muted);"></i>
+
+        <div class="user-text">
+            <b id="pillUserName">User</b>
+            <small id="pillUserEmail">user@email.com</small>
+        </div>
+
+        <i data-lucide="log-out"
+           style="width: 18px; color: var(--text-muted); cursor: pointer;"
+           onclick="logout()"></i>
+    </div>
+</header>
+
+
+      <section class="welcome-header">
+    <h1 id="mainWelcome">Welcome back!</h1>
+    <p>Here's your financial overview</p>
+</section>
+
+  <h1>Transactions</h1>
+  <p>View and manage all your transactions</p>
+
+  <!-- Filters -->
+  <div class="card grid grid-3">
+    <input id="search" placeholder="Search transactions..." />
+
+    <select id="filterType">
+      <option value="all">All Types</option>
+      <option value="income">Income</option>
+      <option value="expense">Expense</option>
+    </select>
+
+    <select id="filterCategory">
+      <option value="all">All Categories</option>
+    </select>
+  </div>
+
+  <!-- List -->
+  <div class="card" id="transactionList"></div>
+
+  <!-- Edit Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">Edit Transaction</div>
+
+      <input id="editAmount" type="number" step="0.01" placeholder="Amount" />
+      <br/><br/>
+
+      <select id="editCategory"></select>
+      <br/><br/>
+
+      <div class="two-col">
+        <input id="editDate" type="date" />
+        <input id="editTime" type="time" />
+      </div>
+
+      <br/>
+      <textarea id="editNotes" placeholder="Notes"></textarea>
+
+      <br/><br/>
+      <div class="two-col">
+        <button onclick="saveEdit()">Save</button>
+        <button class="outline" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* ---------- STORAGE ---------- */
+/* ---------- AUTH + USER SYNC ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  if (!user || !user.isLoggedIn) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  const topNav = document.getElementById('topNavWelcome');
+  const mainWelcome = document.getElementById('mainWelcome');
+  const pillName = document.getElementById('pillUserName');
+  const pillEmail = document.getElementById('pillUserEmail');
+
+  if (topNav) topNav.innerText = `Welcome back, ${user.fullName}!`;
+  if (mainWelcome) mainWelcome.innerText = `Welcome back, ${user.fullName}!`;
+  if (pillName) pillName.innerText = user.fullName;
+  if (pillEmail) pillEmail.innerText = user.email;
+});
+
+const STORAGE_KEY = 'expenseBuddyData';
+
+let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { transactions: [] };
+let editingId = null;
+
+/* ---------- INIT ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+  renderTransactions();
+
+  document.getElementById('search').addEventListener('input', renderTransactions);
+  document.getElementById('filterType').addEventListener('change', renderTransactions);
+  document.getElementById('filterCategory').addEventListener('change', renderTransactions);
+
+  populateCategoryFilter();
+});
+
+/* ---------- FILTER CATEGORIES ---------- */
+function populateCategoryFilter() {
+  const select = document.getElementById('filterCategory');
+  const categories = [...new Set(data.transactions.map(t => t.category))];
+
+  categories.forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat;
+    opt.textContent = cat;
+    select.appendChild(opt);
+  });
+}
+
+/* ---------- RENDER ---------- */
+function renderTransactions() {
+  const list = document.getElementById('transactionList');
+  const search = document.getElementById('search').value.toLowerCase();
+  const type = document.getElementById('filterType').value;
+  const category = document.getElementById('filterCategory').value;
+
+  const filtered = data.transactions.filter(t =>
+    (type === 'all' || t.type === type) &&
+    (category === 'all' || t.category === category) &&
+    (
+      t.title.toLowerCase().includes(search) ||
+      (t.notes || '').toLowerCase().includes(search)
+    )
+  );
+
+  if (!filtered.length) {
+    list.innerHTML = `<p class="empty">No transactions found</p>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(t => `
+    <div class="transaction-row">
+      <div>
+        <strong>${t.title}</strong>
+        <small>${t.category} • ${t.date} • ${t.time || ''}</small>
+      </div>
+
+      <span class="${t.type === 'expense' ? 'text-red' : 'text-green'}">
+        ${t.type === 'expense' ? '-' : '+'}$${t.amount.toFixed(2)}
+      </span>
+
+      <div class="actions">
+        <i data-lucide="pencil" onclick="editTransaction(${t.id})"></i>
+        <i data-lucide="trash-2" onclick="deleteTransaction(${t.id})"></i>
+      </div>
+    </div>
+  `).join('');
+
+  lucide.createIcons();
+}
+
+/* ---------- DELETE ---------- */
+function deleteTransaction(id) {
+  if (!confirm('Delete this transaction?')) return;
+
+  data.transactions = data.transactions.filter(t => t.id !== id);
+  persist();
+}
+
+/* ---------- EDIT ---------- */
+function editTransaction(id) {
+  const tx = data.transactions.find(t => t.id === id);
+  if (!tx) return;
+
+  editingId = id;
+  document.getElementById('editAmount').value = tx.amount;
+  document.getElementById('editCategory').value = tx.category;
+  document.getElementById('editDate').value = tx.date;
+  document.getElementById('editTime').value = tx.time || '';
+  document.getElementById('editNotes').value = tx.notes || '';
+
+  document.getElementById('editModal').style.display = 'flex';
+}
+
+function saveEdit() {
+  const tx = data.transactions.find(t => t.id === editingId);
+  if (!tx) return;
+
+  tx.amount = parseFloat(editAmount.value);
+  tx.category = editCategory.value;
+  tx.date = editDate.value;
+  tx.time = editTime.value;
+  tx.notes = editNotes.value;
+
+  persist();
+  closeEditModal();
+}
+
+function closeEditModal() {
+  editingId = null;
+  document.getElementById('editModal').style.display = 'none';
+}
+
+/* ---------- SAVE ---------- */
+function persist() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  renderTransactions();
+}
+
+/* ---------- NAV ---------- */
+function goToDashboard() {
+  window.location.href = 'dashboard.html';
+}
+
+</script>
+</body>
+</html>

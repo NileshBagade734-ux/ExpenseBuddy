@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Financial Goals</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="../css/goals.css">
+</head>
+
+<body>
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <h2>Expense Buddy</h2>
+      <p>Track Smarter</p>
+    </div>
+
+ <nav class="nav-list">
+  <div class="nav-item">
+    <a href="dashboard.html">
+      <i data-lucide="layout-grid"></i> Dashboard
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="add-Transaction.html">
+      <i data-lucide="plus"></i> Add Transaction
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="transaction.html">
+      <i data-lucide="list"></i> Transactions
+    </a>
+  </div>
+
+  <div class="nav-item ">
+    <a href="reports.html">
+      <i data-lucide="pie-chart"></i> Reports
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="budgets.html">
+      <i data-lucide="target"></i> Budgets
+    </a>
+  </div>
+
+  <div class="nav-item active">
+    <a href="goals.html">
+      <i data-lucide="trending-up"></i> Goals
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="alerts.html">
+      <i data-lucide="bell"></i> Alerts
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="categories.html">
+      <i data-lucide="tag"></i> Categories
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="export.html">
+      <i data-lucide="download"></i> Export
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="settings.html">
+      <i data-lucide="settings"></i> Settings
+    </a>
+  </div>
+</nav>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- TOP NAV -->
+    <header class="top-nav">
+      <p>Welcome back!</p>
+      <div class="user-pill">
+        <div class="user-text">
+          <b>User</b>
+          <small>user@email.com</small>
+        </div>
+      </div>
+    </header>
+<div class="main">
+
+  <div class="header">
+    <div>
+      <h1>Financial Goals</h1>
+      <p class="subtitle">Track your savings goals and progress</p>
+    </div>
+    <button class="btn btn-primary" onclick="openModal()">
+      <i data-lucide="plus"></i> Add Goal
+    </button>
+  </div>
+
+  <div id="goalsGrid" class="grid"></div>
+</div>
+
+<!-- MODAL -->
+<div id="goalModal" class="modal">
+  <div class="modal-content">
+    <h2 id="modalTitle">Add Goal</h2>
+
+    <div class="field">
+      <label>Goal Title *</label>
+      <input id="title">
+    </div>
+
+    <div class="field">
+      <label>Target Amount *</label>
+      <input id="target" type="number">
+    </div>
+
+    <div class="field">
+      <label>Current Amount</label>
+      <input id="current" type="number">
+    </div>
+
+    <div class="field">
+      <label>Deadline *</label>
+      <input id="deadline" type="date">
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <button class="btn btn-primary" style="flex:1" onclick="saveGoal()">Save</button>
+      <button class="btn" style="flex:1" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="goals.js"></script>
+</body>
+</html>

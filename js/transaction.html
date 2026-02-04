@@ -1,109 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Transactions – Expense Buddy</title>
+  <meta charset="UTF-8" />
+  <title>Transactions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<link rel="stylesheet" href="../css/transactions.css">
-<script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/transaction.css">
 </head>
 
 <body>
+<div class="layout">
 
-<div class="app-container">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <h2>Expense Buddy</h2>
+      <p>Track Smarter</p>
+    </div>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="brand">
-            <div class="brand-icon" data-lucide="wallet"></div>
-            <div>
-                <h2>Expense Buddy</h2>
-                <p>Track Smarter</p>
-            </div>
+    <nav class="nav-list">
+      <div class="nav-item"><a href="dashboard.html"><i data-lucide="layout-grid"></i> Dashboard</a></div>
+      <div class="nav-item"><a href="add-Transaction.html"><i data-lucide="plus"></i> Add Transaction</a></div>
+      <div class="nav-item active"><a href="transaction.html"><i data-lucide="list"></i> Transactions</a></div>
+      <div class="nav-item"><a href="reports.html"><i data-lucide="pie-chart"></i> Reports</a></div>
+      <div class="nav-item"><a href="budgets.html"><i data-lucide="target"></i> Budgets</a></div>
+      <div class="nav-item"><a href="goals.html"><i data-lucide="trending-up"></i> Goals</a></div>
+      <div class="nav-item"><a href="alerts.html"><i data-lucide="bell"></i> Alerts</a></div>
+      <div class="nav-item"><a href="categories.html"><i data-lucide="tag"></i> Categories</a></div>
+      <div class="nav-item"><a href="export.html"><i data-lucide="download"></i> Export</a></div>
+      <div class="nav-item"><a href="settings.html"><i data-lucide="settings"></i> Settings</a></div>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- TOP NAV -->
+    <header class="top-nav">
+      <p id="topNavWelcome">Welcome back!</p>
+
+      <div class="user-pill">
+        <i data-lucide="bell"></i>
+        <div class="user-text">
+          <b id="pillUserName">User</b>
+          <small id="pillUserEmail">user@email.com</small>
         </div>
+        <i data-lucide="log-out" onclick="logout()"></i>
+      </div>
+    </header>
 
-        <nav class="nav-list">
-            <a href="dashboard.html"><i data-lucide="layout-grid"></i>Dashboard</a>
-            <a href="add.html"><i data-lucide="plus"></i>Add Transaction</a>
-            <a class="active"><i data-lucide="credit-card"></i>Transactions</a>
-            <a href="#"><i data-lucide="bar-chart"></i>Reports</a>
-            <a href="#"><i data-lucide="target"></i>Goals</a>
-            <a href="#"><i data-lucide="settings"></i>Settings</a>
-        </nav>
-    </aside>
+    <section class="welcome-header">
+      <h1 id="mainWelcome">Welcome back!</h1>
+      <p>Here's your financial overview</p>
+    </section>
 
-    <!-- MAIN -->
-    <main class="main-content">
+    <h1>Transactions</h1>
+    <p>View and manage all your transactions</p>
 
-        <!-- TOP BAR -->
-        <header class="top-bar">
-            <h1>Welcome back, <span id="username">Nilesh Bagade</span>!</h1>
+    <!-- FILTERS -->
+    <div class="card grid grid-3">
+      <input id="search" placeholder="Search transactions..." />
+      <select id="filterType">
+        <option value="all">All Types</option>
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+      <select id="filterCategory">
+        <option value="all">All Categories</option>
+      </select>
+    </div>
 
-            <div class="user-pill">
-                <i data-lucide="bell"></i>
-                <div class="user-info">
-                    <strong>Nilesh Bagade</strong>
-                    <small>nileshbagade734@gmail.com</small>
-                </div>
-            </div>
-        </header>
+    <!-- LIST -->
+    <div class="card" id="transactionList"></div>
 
-        <!-- PAGE HEADER -->
-        <section class="page-header">
-            <h2>Transactions</h2>
-            <p>View and manage all your transactions</p>
-        </section>
-
-        <!-- FILTER BAR -->
-        <section class="filter-card">
-            <div class="filter search">
-                <i data-lucide="search"></i>
-                <input type="text" id="searchInput" placeholder="Search transactions...">
-            </div>
-
-            <div class="filter">
-                <i data-lucide="filter"></i>
-                <select id="typeFilter">
-                    <option value="All">All Types</option>
-                    <option value="Income">Income</option>
-                    <option value="Expense">Expense</option>
-                </select>
-            </div>
-
-            <div class="filter">
-                <i data-lucide="filter"></i>
-                <select id="categoryFilter">
-                    <option value="All">All Categories</option>
-                </select>
-            </div>
-        </section>
-
-        <!-- CONTENT -->
-        <section class="content-card">
-            <div id="emptyState">
-                <p>No transactions found</p>
-            </div>
-
-            <table id="transactionTable">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Amount</th>
-                        <th>Category</th>
-                        <th>Date</th>
-                        <th align="right">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="expenseTableBody"></tbody>
-            </table>
-        </section>
-
-    </main>
+  </main>
 </div>
 
-<script src="../js/transaction.js"></script>
-<script>lucide.createIcons();</script>
-
+<script src="transaction.js"></script>
 </body>
 </html>
