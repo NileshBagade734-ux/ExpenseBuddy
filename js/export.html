@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Expense Buddy - Export</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/export.css">
+</head>
+<body>
+
+<div class="layout">
+    <aside class="sidebar">
+        <div class="logo-area">
+            <h2>Expense Buddy</h2>
+            <p>Track Smarter</p>
+        </div>
+        <nav class="nav-list">
+       <div class="nav-item ">
+    <a href="dashboard.html">
+        <i data-lucide="layout-grid"></i> Dashboard
+    </a>
+</div>
+
+<div class="nav-item" onclick="openModal()">
+     <a href="add-Transaction.html">
+        <i data-lucide="plus"></i> Add Transaction
+    </a>
+  
+</div>
+
+<div class="nav-item">
+    <a href="transaction.html">
+        <i data-lucide="list"></i> Transactions
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="reports.html">
+        <i data-lucide="pie-chart"></i> Reports
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="budgets.html">
+        <i data-lucide="target"></i> Budgets
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="goals.html">
+        <i data-lucide="trending-up"></i> Goals
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="categories.html">
+        <i data-lucide="tag"></i> Categories
+    </a>
+</div>
+
+<div class="nav-item active">
+    <a href="export.html">
+        <i data-lucide="download"></i> Export
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="settings.html">
+        <i data-lucide="settings"></i> Settings
+    </a>
+</div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+     <header class="top-nav">
+    <p id="topNavWelcome" style="font-size: 0.9rem; font-weight: 500;">
+        Welcome back!
+    </p>
+
+    <div class="user-pill">
+        <i data-lucide="bell" style="width: 18px; color: var(--text-muted);"></i>
+
+        <div class="user-text">
+            <b id="pillUserName">User</b>
+            <small id="pillUserEmail">user@email.com</small>
+        </div>
+
+        <i data-lucide="log-out"
+           style="width: 18px; color: var(--text-muted); cursor: pointer;"
+           onclick="logout()"></i>
+    </div>
+</header>
+
+
+      <section class="welcome-header">
+
+</section>
+
+<div class="container">
+  <h1>Export Data</h1>
+  <p class="subtitle">Download your transaction data in various formats</p>
+
+  <div class="card">
+    <!-- Export Format -->
+    <div class="section">
+      <label>Export Format</label>
+      <select id="format">
+        <option value="csv">CSV (Excel Compatible)</option>
+        <option value="pdf">PDF Report (HTML)</option>
+      </select>
+    </div>
+
+    <!-- Date Range -->
+    <div class="section">
+      <label>Date Range (Optional)</label>
+      <div class="grid-2">
+        <input type="date" id="startDate" />
+        <input type="date" id="endDate" />
+      </div>
+    </div>
+
+    <!-- Category -->
+    <div class="section">
+      <label>Filter by Category</label>
+      <select id="category">
+        <option value="all">All Categories</option>
+        <option value="Food">Food</option>
+        <option value="Transport">Transport</option>
+        <option value="Salary">Salary</option>
+      </select>
+    </div>
+
+    <!-- Preview -->
+    <div class="preview" id="previewBox">
+      <p><strong id="count">0</strong> transactions will be exported</p>
+    </div>
+
+    <button id="exportBtn">Export</button>
+  </div>
+
+  <div class="card info">
+    <h3>Export Information</h3>
+    <ul>
+      <li>CSV works with Excel & Google Sheets</li>
+      <li>PDF is generated as HTML (print to PDF)</li>
+      <li>Includes date, category, amount & notes</li>
+      <li>Use filters for specific periods</li>
+    </ul>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="../js/export.js"></script>
+</body>
+</html>

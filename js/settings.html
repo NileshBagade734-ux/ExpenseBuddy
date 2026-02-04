@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Expense Buddy</title>
+  <link rel="stylesheet" href="../css/settings.css">
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <h2>Expense Buddy</h2>
+      <p>Track Smarter</p>
+    </div>
+
+ <nav class="nav-list">
+  <div class="nav-item">
+    <a href="dashboard.html">
+      <i data-lucide="layout-grid"></i> Dashboard
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="add-Transaction.html">
+      <i data-lucide="plus"></i> Add Transaction
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="transaction.html">
+      <i data-lucide="list"></i> Transactions
+    </a>
+  </div>
+
+  <div class="nav-item ">
+    <a href="reports.html">
+      <i data-lucide="pie-chart"></i> Reports
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="budgets.html">
+      <i data-lucide="target"></i> Budgets
+    </a>
+  </div>
+
+  <div class="nav-item ">
+    <a href="goals.html">
+      <i data-lucide="trending-up"></i> Goals
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="categories.html">
+      <i data-lucide="tag"></i> Categories
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="export.html">
+      <i data-lucide="download"></i> Export
+    </a>
+  </div>
+
+  <div class="nav-item active">
+    <a href="settings.html">
+      <i data-lucide="settings"></i> Settings
+    </a>
+  </div>
+</nav>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- TOP NAV -->
+    <header class="top-nav">
+      <p>Welcome back!</p>
+      <div class="user-pill">
+        <div class="user-text">
+          <b>User</b>
+          <small>user@email.com</small>
+        </div>
+      </div>
+    </header>
+    <div class="user-pill">
+        <i data-lucide="bell" style="width: 18px; color: var(--text-muted);"></i>
+
+        <i data-lucide="log-out"
+           style="width: 18px; color: var(--text-muted); cursor: pointer;"
+           onclick="logout()"></i>
+    </div>
+</header>
+
+
+<div class="container">
+
+  <div>
+    <h1>Settings</h1>
+    <p class="subtitle">Manage your account settings and preferences</p>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="card" id="profileCard">
+    <div class="section-header">
+      <div class="icon">👤</div>
+      <h2>Profile Information</h2>
+    </div>
+    <form id="profileForm">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" placeholder="Enter full name" />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter email" />
+
+      <button type="submit">Update Profile</button>
+      <button type="button" id="undoBtn">Undo Last Change</button>
+    </form>
+  </div>
+
+  <!-- Password Card -->
+  <div class="card" id="passwordCard">
+    <div class="section-header">
+      <div class="icon">🔒</div>
+      <h2>Change Password</h2>
+    </div>
+    <form id="passwordForm">
+      <label for="currentPassword">Current Password</label>
+      <input type="password" id="currentPassword" placeholder="Enter current password" />
+
+      <label for="newPassword">New Password</label>
+      <input type="password" id="newPassword" placeholder="Enter new password" />
+      <div class="strength-meter"><div id="strengthFill" class="strength-meter-fill"></div></div>
+
+      <label for="confirmPassword">Confirm New Password</label>
+      <input type="password" id="confirmPassword" placeholder="Confirm new password" />
+
+      <button type="submit">Update Password</button>
+    </form>
+  </div>
+
+  <!-- Preferences Card -->
+  <div class="card" id="preferencesCard">
+    <div class="section-header">
+      <div class="icon">🎨</div>
+      <h2>Preferences</h2>
+    </div>
+    <div class="preference-item">
+      <div>
+        <p>Budget Alerts</p>
+        <p class="small-text">Receive notifications when approaching budget limits</p>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="notificationsSwitch">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="preference-item">
+      <div>
+        <p>Dark Mode</p>
+        <p class="small-text">Toggle between light and dark theme</p>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="darkModeSwitch">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <button id="exportBtn">Export Settings (JSON)</button>
+  </div>
+
+  <!-- Danger Zone -->
+  <div class="card danger">
+    <div class="section-header">
+      <div class="icon">🚪</div>
+      <h2>Account Actions</h2>
+    </div>
+    <div class="danger-item">
+      <div>
+        <p>Logout</p>
+        <p class="small-text">Sign out of your account</p>
+      </div>
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </div>
+
+  <!-- Account Info -->
+  <div class="card account-info">
+    <h3>Account Information</h3>
+    <ul>
+      <li>Your data is stored locally in your browser</li>
+      <li>Clear browser data to reset the application</li>
+      <li>Export your data regularly to keep backups</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../js/settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Smart Budget App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="../css/budgets.css">
+</head>
+
+<body>
+    <div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <h2>Expense Buddy</h2>
+      <p>Track Smarter</p>
+    </div>
+
+    <nav class="nav-list">
+      <div class="nav-item"><a href="dashboard.html"><i data-lucide="layout-grid"></i> Dashboard</a></div>
+      <div class="nav-item"><a href="add-Transaction.html"><i data-lucide="plus"></i> Add Transaction</a></div>
+      <div class="nav-item "><a href="transaction.html"><i data-lucide="list"></i> Transactions</a></div>
+      <div class="nav-item"><a href="reports.html"><i data-lucide="pie-chart"></i> Reports</a></div>
+      <div class="nav-item active"><a href="budgets.html"><i data-lucide="target"></i> Budgets</a></div>
+      <div class="nav-item"><a href="goals.html"><i data-lucide="trending-up"></i> Goals</a></div>
+    
+      <div class="nav-item"><a href="categories.html"><i data-lucide="tag"></i> Categories</a></div>
+      <div class="nav-item"><a href="export.html"><i data-lucide="download"></i> Export</a></div>
+      <div class="nav-item"><a href="settings.html"><i data-lucide="settings"></i> Settings</a></div>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- TOP NAV -->
+    <header class="top-nav">
+      <p id="topNavWelcome">Welcome back!</p>
+
+      <div class="user-pill">
+        <i data-lucide="bell"></i>
+        <div class="user-text">
+          <b id="pillUserName">User</b>
+          <small id="pillUserEmail">user@email.com</small>
+        </div>
+        <i data-lucide="log-out" onclick="logout()"></i>
+      </div>
+    </header>
+
+    <section class="welcome-header">
+      <h1 id="mainWelcome">Welcome back!</h1>
+      <p>Here's your financial overview</p>
+    </section>
+
+
+<h1>💸 Smart Budget App</h1>
+<p class="small">Manual entry • Auto-save • Smart insights</p>
+
+<!-- ADD CATEGORY -->
+<div class="card">
+  <h3>Add Category</h3>
+  <div class="row">
+    <input id="catName" placeholder="Category name"/>
+    <input id="catColor" type="color"/>
+    <button onclick="addCategory()">Add</button>
+  </div>
+</div>
+
+<!-- SET BUDGET -->
+<div class="card">
+  <h3>Set Monthly Budget</h3>
+  <div class="row">
+    <select id="budgetCategory"></select>
+    <input id="budgetAmount" type="number" placeholder="Amount"/>
+    <button onclick="setBudget()">Save</button>
+  </div>
+</div>
+
+<!-- ADD TRANSACTION -->
+<div class="card">
+  <h3>Add Expense</h3>
+  <div class="grid">
+    <input id="txNote" placeholder="Note (eg: Swiggy order)" oninput="autoSuggest()"/>
+    <div class="row">
+      <input id="txAmount" type="number" placeholder="Amount"/>
+      <select id="txCategory"></select>
+      <input id="txDate" type="date"/>
+    </div>
+    <button onclick="addTransaction()">Add Expense</button>
+  </div>
+  <p class="small" id="suggestion"></p>
+</div>
+
+<!-- SUMMARY -->
+<div class="card">
+  <h3>📊 Monthly Summary</h3>
+  <div id="summary"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../js/budgets.js"></script>
+</body>
+</html>

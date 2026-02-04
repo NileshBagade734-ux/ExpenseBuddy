@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Category Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/categories.css">
+</head>
+
+<body>
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo-area">
+        <h2>Expense Buddy</h2>
+        <p>Track Smarter</p>
+      </div>
+
+      <nav class="nav-list">
+        <div class="nav-item">
+          <a href="dashboard.html">
+            <i data-lucide="layout-grid"></i> Dashboard
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="add-Transaction.html">
+            <i data-lucide="plus"></i> Add Transaction
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="transaction.html">
+            <i data-lucide="list"></i> Transactions
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="reports.html">
+            <i data-lucide="pie-chart"></i> Reports
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="budgets.html">
+            <i data-lucide="target"></i> Budgets
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="goals.html">
+            <i data-lucide="trending-up"></i> Goals
+          </a>
+        </div>
+
+        <div class="nav-item active">
+          <a href="categories.html">
+            <i data-lucide="tag"></i> Categories
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="export.html">
+            <i data-lucide="download"></i> Export
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="settings.html">
+            <i data-lucide="settings"></i> Settings
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <!-- TOP NAV -->
+      <header class="top-nav">
+        <p>Welcome back!</p>
+        <div class="user-pill">
+          <div class="user-text">
+            <b>User</b>
+            <small>user@email.com</small>
+          </div>
+        </div>
+      </header>
+
+      <h1>Category Management</h1>
+      <p>Add and manage custom transaction categories</p>
+
+      <!-- Add Category -->
+      <div class="card">
+        <h2 class="section-title">➕ Add New Category</h2>
+
+        <div class="grid">
+          <div>
+            <label>Category Name *</label>
+            <input id="nameInput" placeholder="e.g. Shopping" />
+          </div>
+
+          <div>
+            <label>Type *</label>
+            <select id="typeInput">
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Color *</label>
+            <select id="colorInput">
+              <option value="#3B82F6">Blue</option>
+              <option value="#EF4444">Red</option>
+              <option value="#10B981">Green</option>
+              <option value="#F59E0B">Yellow</option>
+              <option value="#8B5CF6">Purple</option>
+              <option value="#EC4899">Pink</option>
+              <option value="#06B6D4">Cyan</option>
+              <option value="#F97316">Orange</option>
+              <option value="#6B7280">Gray</option>
+            </select>
+          </div>
+        </div>
+
+        <button onclick="addCategory()">Add Category</button>
+      </div>
+
+      <!-- Expense -->
+      <h2 class="section-title">🔴 Expense Categories</h2>
+      <div class="grid" id="expenseList"></div>
+
+      <!-- Income -->
+      <h2 class="section-title" style="margin-top:24px;">🟢 Income Categories</h2>
+      <div class="grid" id="incomeList"></div>
+
+    </main>
+  </div>
+
+  <!-- JS FILES -->
+  <script src="../js/categories.js"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+  <script>
+    lucide.replace(); // Render all icons
+  </script>
+</body>
+</html>
