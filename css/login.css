@@ -1,0 +1,25 @@
+/* Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Custom Gradients */
+.bg-gradient-page {
+    background: linear-gradient(135deg, #F7F8FA 0%, #FFFFFF 100%);
+}
+
+/* Dark Mode Gradient Override */
+body.dark {
+    background: radial-gradient(circle at top right, #1a202c, #111827);
+}
+
+/* Smooth Input Focus */
+input:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
+}
+
+/* Custom Checkbox Styling */
+#remember {
+    accent-color: #3B82F6;
+}

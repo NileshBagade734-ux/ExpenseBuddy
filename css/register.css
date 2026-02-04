@@ -1,0 +1,16 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.bg-gradient-page {
+    background: linear-gradient(135deg, #F7F8FA 0%, #FFFFFF 100%);
+}
+
+body.dark {
+    background: radial-gradient(circle at top right, #1a202c, #111827);
+}
+
+input:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
+}

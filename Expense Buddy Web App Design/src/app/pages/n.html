@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Buddy - Dashboard</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* CSS STYLES */
+        :root {
+            --primary-blue: #3b82f6;
+            --bg-gray: #f8fafc;
+            --text-gray: #64748b;
+            --expense-red: #ef4444;
+            --income-green: #10b981;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-gray);
+            color: #1e293b;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            padding: 20px;
+        }
+
+        .logo h2 { margin-bottom: 5px; color: #0f172a; }
+        .logo p { font-size: 0.8rem; color: var(--text-gray); margin-top: 0; }
+
+        nav ul { list-style: none; padding: 0; margin-top: 40px; }
+        nav ul li {
+            padding: 12px 15px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            border-radius: 8px;
+            color: var(--text-gray);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li i { margin-right: 10px; width: 20px; }
+        nav ul li.active, nav ul li:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content { flex: 1; padding: 0 40px; }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .user-info { display: flex; align-items: center; gap: 15px; }
+        .user-details { font-size: 0.8rem; text-align: right; }
+        .user-details .name { display: block; font-weight: bold; }
+
+        /* Welcome Section */
+        .overview h1 { margin-top: 30px; margin-bottom: 5px; }
+        .overview p { color: var(--text-gray); margin-bottom: 25px; }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .card i { font-size: 1.5rem; margin-bottom: 15px; display: block; }
+        .card p { margin: 0; color: var(--text-gray); font-size: 0.9rem; }
+        .card h3 { font-size: 1.8rem; margin: 10px 0 0 0; }
+
+        .card-red h3 { color: var(--expense-red); }
+        .card-green h3 { color: var(--income-green); }
+        .card-blue h3 { color: var(--primary-blue); }
+        .card-teal h3 { color: #0d9488; }
+
+        /* Quick Actions */
+        .quick-actions { margin-top: 40px; }
+        .btn-group { display: flex; gap: 15px; margin-top: 15px; }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+        
+        .btn:hover { opacity: 0.9; }
+
+        .btn-red { background: var(--expense-red); color: white; }
+        .btn-green { background: var(--income-green); color: white; }
+        .btn-blue { background: var(--primary-blue); color: white; }
+        .btn-outline { border: 1px solid var(--primary-blue); color: var(--primary-blue); background: white; }
+
+        /* Transactions Section */
+        .recent-transactions {
+            margin-top: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            min-height: 250px;
+            text-align: center;
+        }
+
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .section-header h3 { margin: 0; }
+        .section-header a { color: var(--primary-blue); text-decoration: none; font-size: 0.9rem; }
+
+        .empty-state { color: var(--text-gray); }
+        .large-plus { font-size: 3rem; display: block; margin-bottom: 10px; color: #cbd5e1; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Expense Buddy</h2>
+                <p>Track Smarter</p>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><i class="fa-solid fa-table-columns"></i> Dashboard</li>
+                    <li><i class="fa-solid fa-plus"></i> Add Transaction</li>
+                    <li><i class="fa-solid fa-money-bill-transfer"></i> Transactions</li>
+                    <li><i class="fa-solid fa-chart-line"></i> Reports</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Goals</li>
+                    <li><i class="fa-solid fa-gear"></i> Settings</li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <span class="welcome-text">Welcome back, Nilesh Bagade!</span>
+                <div class="user-info">
+                    <i class="fa-regular fa-bell"></i>
+                    <div class="user-details">
+                        <span class="name">Nilesh Bagade</span>
+                        <span class="email">nileshbagade734@gmail.com</span>
+                    </div>
+                    <i class="fa-solid fa-right-from-bracket" style="cursor: pointer;"></i>
+                </div>
+            </header>
+
+            <section class="overview">
+                <h1>Welcome back, Nilesh Bagade!</h1>
+                <p>Here's your financial overview</p>
+
+                <div class="stats-grid">
+                    <div class="card card-red">
+                        <i class="fa-solid fa-arrow-trend-down"></i>
+                        <p>Total Expenses</p>
+                        <h3>$0.00</h3>
+                    </div>
+                    <div class="card card-green">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        <p>Total Income</p>
+                        <h3>$0.00</h3>
+                    </div>
+                    <div class="card card-blue">
+                        <i class="fa-solid fa-wallet"></i>
+                        <p>Balance</p>
+                        <h3>$0.00</h3>
+                    </div>
+                    <div class="card card-teal">
+                        <i class="fa-solid fa-piggy-bank"></i>
+                        <p>Savings</p>
+                        <h3>$0.00</h3>
+                    </div>
+                </div>
+            </section>
+
+            <section class="quick-actions">
+                <h3>Quick Actions</h3>
+                <div class="btn-group">
+                    <button class="btn btn-red"><i class="fa-solid fa-circle-down"></i> Add Expense</button>
+                    <button class="btn btn-green"><i class="fa-solid fa-circle-up"></i> Add Income</button>
+                    <button class="btn btn-outline">View Reports</button>
+                </div>
+            </section>
+
+            <section class="recent-transactions">
+                <div class="section-header">
+                    <h3>Recent Transactions</h3>
+                    <a href="#">View All</a>
+                </div>
+                <div class="empty-state">
+                    <i class="fa-solid fa-plus large-plus"></i>
+                    <p>No transactions yet</p>
+                    <button class="btn btn-blue" id="addBtn" style="margin: 20px auto;">Add Your First Transaction</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Event listener for the "Add Transaction" button
+        document.getElementById('addBtn').addEventListener('click', function() {
+            const amount = prompt("Enter transaction amount:");
+            if (amount !== null && amount !== "") {
+                if (!isNaN(amount)) {
+                    alert("Transaction of $" + amount + " added successfully!");
+                } else {
+                    alert("Please enter a valid number.");
+                }
+            }
+        });
+
+        // Navigation Menu Interaction
+        const navItems = document.querySelectorAll('nav ul li');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active class from all items
+                navItems.forEach(i => i.classList.remove('active'));
+                // Add active class to clicked item
+                item.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

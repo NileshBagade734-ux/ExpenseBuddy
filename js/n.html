@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expense Buddy - Track Smarter</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+:root {
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --text-dark: #0f172a;
+    --text-gray: #64748b;
+    --border: #e2e8f0;
+    --red: #ef4444;
+    --green: #22c55e;
+}
+
+* { box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-main); margin: 0; color: var(--text-dark); }
+
+.app-container { display: flex; min-height: 100vh; }
+.sidebar { width: 280px; background: white; border-right: 1px solid var(--border); padding: 1.5rem; display: flex; flex-direction: column; }
+.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 2.5rem; }
+.brand h2 { font-size: 1.25rem; margin: 0; }
+.brand p { font-size: 0.8rem; color: var(--text-gray); margin: 0; }
+.brand-icon { color: var(--primary); width: 32px; height: 32px; }
+
+.nav-item { 
+    display: flex; align-items: center; gap: 12px; padding: 12px; width: 100%; 
+    border: none; background: none; color: var(--text-gray); font-weight: 500; 
+    border-radius: 8px; cursor: pointer; margin-bottom: 4px; transition: 0.2s;
+    text-align: left;
+}
+.nav-item:hover { background: #f1f5f9; color: var(--text-dark); }
+.nav-item.active { background: var(--primary); color: white; }
+
+.main-content { flex: 1; padding: 0 2rem; }
+.top-bar { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; }
+.user-pill { display: flex; align-items: center; gap: 12px; background: white; padding: 6px 12px; border-radius: 50px; border: 1px solid var(--border); }
+.user-info { line-height: 1.2; text-align: right; }
+.user-info small { color: var(--text-gray); display: block; }
+
+.form-card { max-width: 650px; margin: 2rem auto; background: white; padding: 2.5rem; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.text-center { text-align: center; }
+.card-header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+.card-header p { color: var(--text-gray); margin-bottom: 2.5rem; }
+
+.form-group { margin-bottom: 1.25rem; }
+label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
+input, select, textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: #fdfdfd; font-size: 1rem; color: var(--text-dark); outline: none; }
+input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+
+.toggle-group { display: flex; gap: 10px; background: #f1f5f9; padding: 6px; border-radius: 12px; }
+.toggle-btn { flex: 1; padding: 12px; border: 1px solid transparent; border-radius: 10px; cursor: pointer; font-weight: 600; background: transparent; transition: 0.3s; }
+.toggle-btn.active#btnExpense { background: #fee2e2; color: var(--red); border-color: var(--red); }
+.toggle-btn.active#btnIncome { background: #dcfce7; color: var(--green); border-color: var(--green); }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.input-with-icon { position: relative; }
+.currency-symbol { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-gray); }
+.input-with-icon input { padding-left: 28px; }
+
+.form-actions { display: flex; gap: 12px; margin-top: 2rem; }
+.btn-submit { flex: 2; background: var(--primary); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 600; cursor: pointer; }
+.btn-submit:hover { background: var(--primary-hover); }
+.btn-cancel { flex: 1; background: white; border: 1px solid var(--border); padding: 14px; border-radius: 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="brand">
+            <i data-lucide="wallet" class="brand-icon"></i>
+            <div>
+                <h2>Expense Buddy</h2>
+                <p>Track Smarter</p>
+            </div>
+        </div>
+        <nav class="nav-list">
+            <div class="nav-item active"><i data-lucide="layout-grid"></i> Dashboard</div>
+            <div class="nav-item" onclick="openModal()"><i data-lucide="plus"></i> Add Transaction</div>
+            <div class="nav-item"><i data-lucide="list"></i> Transactions</div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-bar">
+            <h2 id="mainWelcome">Welcome back!</h2>
+            <div class="user-pill">
+                <div class="user-info">
+                    <strong id="pillUserName">User Name</strong>
+                    <small id="pillUserEmail">user@email.com</small>
+                </div>
+                <i data-lucide="chevron-down" class="small-icon"></i>
+            </div>
+        </header>
+
+        <section class="content-wrapper">
+            <div class="form-card">
+                <div class="card-header text-center">
+                    <h1>Add Transaction</h1>
+                    <p>Record a new expense or income</p>
+                </div>
+
+                <form id="transactionForm">
+                    <div class="form-group">
+                        <label>Transaction Type</label>
+                        <div class="toggle-group">
+                            <button type="button" id="btnExpense" class="toggle-btn active" onclick="setType('expense')">Expense</button>
+                            <button type="button" id="btnIncome" class="toggle-btn" onclick="setType('income')">Income</button>
+                            <input type="hidden" id="type" value="expense">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amt">Amount *</label>
+                        <div class="input-with-icon">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="amt" step="0.01" placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category / Source *</label>
+                        <select id="category" required></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="desc">Title/Description *</label>
+                        <input type="text" id="desc" placeholder="e.g., Weekly Groceries" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date">
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Time</label>
+                            <input type="time" id="time">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Notes (Optional)</label>
+                        <textarea id="notes" placeholder="Add any additional notes..." rows="3"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">Save Transaction</button>
+                        <button type="button" class="btn-cancel" onclick="resetForm()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+/* ---------- Categories ---------- */
+const expenseCategories = ["Food & Dining","Transportation","Shopping","Entertainment","Bills & Utilities","Groceries","Rent","Healthcare","Other"];
+const incomeCategories = ["Salary","Freelancing","Internship / Stipend","Business Income","Part-Time Job","Bonus","Commission","Investments","Other Income"];
+
+/* ---------- AUTH & INIT ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+    let user = JSON.parse(localStorage.getItem('user'));
+    if(!user){
+        user={fullName:"Test User",email:"test@example.com",isLoggedIn:true};
+        localStorage.setItem('user',JSON.stringify(user));
+    }
+    document.getElementById('mainWelcome').innerText=`Welcome back, ${user.fullName}!`;
+    document.getElementById('pillUserName').innerText=user.fullName;
+    document.getElementById('pillUserEmail').innerText=user.email;
+
+    const now=new Date();
+    document.getElementById('date').value=now.toISOString().split('T')[0];
+    document.getElementById('time').value=now.toTimeString().slice(0,5);
+
+    setType('expense');
+    lucide.createIcons();
+});
+
+/* ---------- Type toggle ---------- */
+function setType(type){
+    document.getElementById('type').value=type;
+    document.getElementById('btnExpense').classList.toggle('active', type==='expense');
+    document.getElementById('btnIncome').classList.toggle('active', type==='income');
+
+    const categorySelect=document.getElementById('category');
+    categorySelect.innerHTML=`<option value="" disabled selected>Select a category</option>`;
+    const list=type==='income'?incomeCategories:expenseCategories;
+    list.forEach(cat=>{const opt=document.createElement('option');opt.value=cat;opt.textContent=cat;categorySelect.appendChild(opt);});
+}
+
+/* ---------- Form Submit ---------- */
+document.getElementById('transactionForm').addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const title=document.getElementById('desc').value.trim();
+    const amount=parseFloat(document.getElementById('amt').value);
+    const category=document.getElementById('category').value;
+    const type=document.getElementById('type').value;
+    const date=document.getElementById('date').value;
+    const time=document.getElementById('time').value;
+    const notes=document.getElementById('notes').value;
+
+    if(!title||isNaN(amount)||amount<=0||!category){
+        alert("Please fill all required fields correctly."); return;
+    }
+
+    const newTransaction={id:Date.now(),title,amount,category,type,date,time,notes,createdAt:new Date().toISOString()};
+    const data=JSON.parse(localStorage.getItem('expenseBuddyData'))||{transactions:[]};
+    data.transactions.unshift(newTransaction);
+    localStorage.setItem('expenseBuddyData',JSON.stringify(data));
+
+    alert("Transaction added successfully!");
+    window.location.href='dashboard.html';
+});
+
+/* ---------- Reset Form ---------- */
+function resetForm(){
+    document.getElementById('transactionForm').reset();
+    setType('expense');
+    const now=new Date();
+    document.getElementById('date').value=now.toISOString().split('T')[0];
+    document.getElementById('time').value=now.toTimeString().slice(0,5);
+}
+
+/* ---------- Logout ---------- */
+function logout(){
+    localStorage.removeItem('user');
+    window.location.href='login.html';
+}
+</script>
+
+</body>
+</html>

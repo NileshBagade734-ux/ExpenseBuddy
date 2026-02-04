@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Buddy - Track Your Expenses Effortlessly</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .hero-bg {
+            background: url('https://source.unsplash.com/1600x900/?finance,money') center/cover no-repeat;
+        }
+        .nav-link:hover { color: #3B82F6; transition: 0.3s; }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-900 overflow-x-hidden">
+
+<!-- NAVIGATION -->
+<nav class="w-full fixed top-0 left-0 bg-white shadow-md z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
+        <div class="text-2xl font-bold text-[#3B82F6]">Expense Buddy</div>
+        <div class="hidden md:flex gap-6 font-semibold text-gray-700">
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#benefits" class="nav-link">Benefits</a>
+            <a href="#testimonials" class="nav-link">Testimonials</a>
+            <a href="#cta" class="nav-link">Get Started</a>
+        </div>
+        <div class="md:hidden">
+            <button id="menu-btn"><i data-lucide="menu" class="w-6 h-6"></i></button>
+        </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden flex-col gap-4 p-6 bg-white md:hidden">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#benefits" class="nav-link">Benefits</a>
+        <a href="#testimonials" class="nav-link">Testimonials</a>
+        <a href="#cta" class="nav-link">Get Started</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-bg h-screen flex items-center justify-center text-center text-white relative">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="relative z-10 px-6 max-w-4xl">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+            Track Your Expenses <span class="text-[#3B82F6]">Effortlessly</span>
+        </h1>
+        <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto">
+            Take control of your finances with Expense Buddy - modern, clean, and premium personal finance tracking.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="./login.html" class="bg-[#3B82F6] hover:bg-[#2563EB] text-white px-10 py-5 text-lg font-semibold rounded-2xl shadow-lg transition-all active:scale-95">
+                Login
+            </a>
+            <a href="./js/register.html" class="border-2 border-[#3B82F6] text-[#3B82F6] hover:bg-[#3B82F6] hover:text-white px-10 py-5 text-lg font-semibold rounded-2xl transition-all active:scale-95">
+                Register
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="container mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold text-[#1F2937] text-center mb-16">Key Features</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="features-container"></div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits" class="container mx-auto px-6 py-20 bg-gray-50">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-[#1F2937] text-center mb-12">Everything You Need</h2>
+        <div class="bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100 reveal-x">
+            <div class="grid md:grid-cols-2 gap-6" id="benefits-container"></div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="py-20 bg-gray-100">
+    <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-12">What Our Users Say</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-xl shadow-md reveal-y">
+                <p class="text-gray-600 mb-4">"Expense Buddy helped me save 20% on my monthly budget!"</p>
+                <h4 class="font-bold text-[#1F2937]">Nilesh Bagade</h4>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md reveal-y">
+                <p class="text-gray-600 mb-4">"Easy to use, beautiful charts, highly recommend!"</p>
+                <h4 class="font-bold text-[#1F2937]">Leena</h4>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md reveal-y">
+                <p class="text-gray-600 mb-4">"Visual insights made me understand my spending patterns clearly!"</p>
+                <h4 class="font-bold text-[#1F2937]">Janiella</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="container mx-auto px-6 py-20 pb-24">
+    <div class="max-w-5xl mx-auto p-12 md:p-20 text-center bg-gradient-to-r from-[#3B82F6] to-[#2563EB] rounded-[3rem] shadow-2xl reveal-y">
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Ready to Take Control?</h2>
+        <p class="text-white/90 mb-10 text-xl max-w-xl mx-auto">
+            Join Expense Buddy today and start tracking your expenses effortlessly.
+        </p>
+        <a href="./js/register.html" class="bg-white text-[#3B82F6] hover:bg-gray-100 px-12 py-6 text-xl font-bold rounded-2xl shadow-xl transition-transform hover:scale-105 inline-block">
+            Get Started Free
+        </a>
+    </div>
+</section>
+
+<!-- FLOATING ADD BUTTON -->
+<a href="add.html" class="fixed bottom-8 right-8 bg-[#3B82F6] text-white p-5 rounded-full shadow-xl hover:scale-110 transition-transform">
+    <i data-lucide="plus" class="w-6 h-6"></i>
+</a>
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-white py-10">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-center md:text-left">
+        <div>
+            <h4 class="font-bold mb-4">Expense Buddy</h4>
+            <p>Track, manage, and optimize your finances effortlessly.</p>
+        </div>
+        <div>
+            <h4 class="font-bold mb-4">Quick Links</h4>
+            <ul>
+                <li><a href="login.html" class="hover:text-[#3B82F6]">Login</a></li>
+                <li><a href="./js/register.html" class="hover:text-[#3B82F6]">Register</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold mb-4">Follow Us</h4>
+            <div class="flex justify-center md:justify-start gap-4">
+                <a href="#"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+                <a href="#"><i data-lucide="twitter" class="w-6 h-6"></i></a>
+                <a href="#"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // DATA
+    const features = [
+        { icon: 'trending-up', title: 'Easy Tracking', description: 'Manually add and manage all your expenses and income with ease' },
+        { icon: 'pie-chart', title: 'Visual Insights', description: 'Beautiful charts and graphs to understand your spending patterns' },
+        { icon: 'target', title: 'Smart Budgeting', description: 'Set budgets for categories and get alerts when you exceed them' }
+    ];
+
+    const benefits = [
+        'Track expenses and income manually',
+        'Set and monitor budgets by category',
+        'View detailed analytics and reports',
+        'Set financial goals and track progress',
+        'Export data as CSV or PDF',
+        'Beautiful, intuitive interface'
+    ];
+
+    // INIT PAGE
+    function initPage() {
+        // Features
+        document.getElementById('features-container').innerHTML = features.map(f => `
+            <div class="bg-white p-10 text-center card-hover border border-gray-100 rounded-[2.5rem] reveal-y">
+                <div class="w-16 h-16 bg-[#3B82F6]/10 rounded-2xl flex items-center justify-center mx-auto mb-8">
+                    <i data-lucide="${f.icon}" class="w-8 h-8 text-[#3B82F6]"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-[#1F2937] mb-4">${f.title}</h3>
+                <p class="text-[#6B7280] leading-relaxed text-lg">${f.description}</p>
+            </div>
+        `).join('');
+
+        // Benefits
+        document.getElementById('benefits-container').innerHTML = benefits.map(b => `
+            <div class="flex items-center gap-4 reveal-x">
+                <i data-lucide="check-circle-2" class="w-6 h-6 text-[#10B981] flex-shrink-0"></i>
+                <span class="text-[#1F2937] font-semibold text-lg">${b}</span>
+            </div>
+        `).join('');
+
+        // Lucide icons
+        lucide.createIcons();
+
+        // ScrollReveal
+        ScrollReveal().reveal('.reveal-y', { distance: '50px', duration: 1000, easing: 'ease-out', interval: 150 });
+        ScrollReveal().reveal('.reveal-x', { distance: '30px', origin: 'left', duration: 800, interval: 100 });
+    }
+
+    window.onload = initPage;
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>
+
+</body>
+</html>

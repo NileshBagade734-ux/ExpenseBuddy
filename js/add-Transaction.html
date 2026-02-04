@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expense Buddy - Track Smarter</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ================= ROOT ================= */
+:root {
+    --sidebar-width: 260px;
+
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+
+    --text-dark: #0f172a;
+    --text-gray: #64748b;
+
+    --border: #e2e8f0;
+
+    --red: #ef4444;
+    --green: #22c55e;
+}
+
+/* ================= GLOBAL ================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-main);
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    z-index: 20;
+
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border-right: 1px solid var(--border);
+
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Brand */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 0 0.75rem 1.5rem;
+    margin-bottom: 1rem;
+
+    border-bottom: 1px dashed var(--border);
+}
+
+.brand h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.brand p {
+    font-size: 0.75rem;
+    color: var(--text-gray);
+    margin: 0;
+}
+
+.brand-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--primary);
+}
+
+/* Nav */
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 1rem;
+}
+
+.nav-item {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.nav-item a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 12px 14px;
+    text-decoration: none;
+
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+.nav-item a i {
+    width: 18px;
+    height: 18px;
+}
+
+.nav-item a:hover {
+    background: #f1f5f9;
+    color: var(--text-dark);
+    transform: translateX(3px);
+}
+
+.nav-item.active a {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 10px 20px -8px rgba(59, 130, 246, 0.6);
+}
+
+.nav-item.active a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 80%;
+    width: 4px;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.nav-list::after {
+    content: "";
+    flex-grow: 1;
+}
+
+/* ================= MAIN CONTENT ================= */
+.main-content {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+}
+
+/* ================= TOP BAR (LIKE SCREENSHOT) ================= */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem 2rem;
+    background: #ffffff;
+
+    border-bottom: 1px solid var(--border);
+
+    position: sticky;
+    top: 0;
+    z-index: 15;
+}
+
+.top-bar h2 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-gray);
+    margin: 0;
+}
+
+/* Right side */
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+/* Notification */
+.notify-btn {
+    cursor: pointer;
+    color: var(--text-gray);
+}
+
+.notify-btn i {
+    width: 20px;
+    height: 20px;
+}
+
+/* User pill */
+.user-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: #ffffff;
+    padding: 6px 14px;
+
+    border-radius: 999px;
+    border: 1px solid var(--border);
+
+    cursor: pointer;
+}
+
+.user-info {
+    text-align: right;
+    line-height: 1.2;
+}
+
+.user-info strong {
+    font-size: 0.9rem;
+}
+
+.user-info small {
+    font-size: 0.75rem;
+    color: var(--text-gray);
+}
+
+/* ================= PAGE CONTENT ================= */
+.content-wrapper {
+    padding: 2rem;
+}
+
+/* ================= FORM CARD ================= */
+.form-card {
+    max-width: 650px;
+    margin: 2rem auto;
+
+    background: #ffffff;
+    padding: 2.5rem;
+
+    border-radius: 16px;
+    border: 1px solid var(--border);
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.card-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-header p {
+    color: var(--text-gray);
+    margin-bottom: 2.5rem;
+}
+
+/* ================= FORM ================= */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    background: #fdfdfd;
+    font-size: 1rem;
+
+    outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+
+/* Toggle */
+.toggle-group {
+    display: flex;
+    gap: 10px;
+    background: #f1f5f9;
+    padding: 6px;
+    border-radius: 12px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 12px;
+
+    border-radius: 10px;
+    border: 1px solid transparent;
+
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.toggle-btn.active#btnExpense {
+    background: #fee2e2;
+    color: var(--red);
+    border-color: var(--red);
+}
+
+.toggle-btn.active#btnIncome {
+    background: #dcfce7;
+    color: var(--green);
+    border-color: var(--green);
+}
+
+/* Rows */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Amount input */
+.input-with-icon {
+    position: relative;
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-gray);
+}
+
+.input-with-icon input {
+    padding-left: 28px;
+}
+
+/* Actions */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 2rem;
+}
+
+.btn-submit {
+    flex: 2;
+    background: var(--primary);
+    color: white;
+
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: var(--primary-hover);
+}
+
+.btn-cancel {
+    flex: 1;
+    background: white;
+
+    border: 1px solid var(--border);
+    padding: 14px;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+</style>
+
+</head>
+<body>
+
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="brand">
+            <i data-lucide="wallet" class="brand-icon"></i>
+            <div>
+                <h2>Expense Buddy</h2>
+                <p>Track Smarter</p>
+            </div>
+        </div>
+        <nav class="nav-list">
+            <div class="nav-item ">
+    <a href="dashboard.html">
+        <i data-lucide="layout-grid"></i> Dashboard
+    </a>
+</div>
+
+<div class="nav-item active" onclick="openModal()">
+     <a href="add-Transaction.html">
+        <i data-lucide="plus"></i> Add Transaction
+    </a>
+  
+</div>
+
+<div class="nav-item">
+    <a href="transaction.html">
+        <i data-lucide="list"></i> Transactions
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="reports.html">
+        <i data-lucide="pie-chart"></i> Reports
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="budgets.html">
+        <i data-lucide="target"></i> Budgets
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="goals.html">
+        <i data-lucide="trending-up"></i> Goals
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="alerts.html">
+        <i data-lucide="bell"></i> Alerts
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="categories.html">
+        <i data-lucide="tag"></i> Categories
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="export.html">
+        <i data-lucide="download"></i> Export
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="settings.html">
+        <i data-lucide="settings"></i> Settings
+    </a>
+</div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-bar">
+            <h2 id="mainWelcome">Welcome back!</h2>
+            <div class="user-pill">
+                <div class="user-info">
+                    <strong id="pillUserName">User Name</strong>
+                    <small id="pillUserEmail">user@email.com</small>
+                </div>
+                <i data-lucide="chevron-down" class="small-icon"></i>
+            </div>
+        </header>
+
+        <section class="content-wrapper">
+            <div class="form-card">
+                <div class="card-header text-center">
+                    <h1>Add Transaction</h1>
+                    <p>Record a new expense or income</p>
+                </div>
+
+                <form id="transactionForm">
+                    <div class="form-group">
+                        <label>Transaction Type</label>
+                        <div class="toggle-group">
+                            <button type="button" id="btnExpense" class="toggle-btn active" onclick="setType('expense')">Expense</button>
+                            <button type="button" id="btnIncome" class="toggle-btn" onclick="setType('income')">Income</button>
+                            <input type="hidden" id="type" value="expense">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amt">Amount *</label>
+                        <div class="input-with-icon">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="amt" step="0.01" placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category / Source *</label>
+                        <select id="category" required></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="desc">Title/Description *</label>
+                        <input type="text" id="desc" placeholder="e.g., Weekly Groceries" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date">
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Time</label>
+                            <input type="time" id="time">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Notes (Optional)</label>
+                        <textarea id="notes" placeholder="Add any additional notes..." rows="3"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">Save Transaction</button>
+                        <button type="button" class="btn-cancel" onclick="resetForm()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+</div>
+ <script src="../js/add-Transaction.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transactions – Expense Buddy</title>
+
+<link rel="stylesheet" href="../css/transactions.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon" data-lucide="wallet"></div>
+            <div>
+                <h2>Expense Buddy</h2>
+                <p>Track Smarter</p>
+            </div>
+        </div>
+
+        <nav class="nav-list">
+            <a href="dashboard.html"><i data-lucide="layout-grid"></i>Dashboard</a>
+            <a href="add.html"><i data-lucide="plus"></i>Add Transaction</a>
+            <a class="active"><i data-lucide="credit-card"></i>Transactions</a>
+            <a href="#"><i data-lucide="bar-chart"></i>Reports</a>
+            <a href="#"><i data-lucide="target"></i>Goals</a>
+            <a href="#"><i data-lucide="settings"></i>Settings</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="top-bar">
+            <h1>Welcome back, <span id="username">Nilesh Bagade</span>!</h1>
+
+            <div class="user-pill">
+                <i data-lucide="bell"></i>
+                <div class="user-info">
+                    <strong>Nilesh Bagade</strong>
+                    <small>nileshbagade734@gmail.com</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE HEADER -->
+        <section class="page-header">
+            <h2>Transactions</h2>
+            <p>View and manage all your transactions</p>
+        </section>
+
+        <!-- FILTER BAR -->
+        <section class="filter-card">
+            <div class="filter search">
+                <i data-lucide="search"></i>
+                <input type="text" id="searchInput" placeholder="Search transactions...">
+            </div>
+
+            <div class="filter">
+                <i data-lucide="filter"></i>
+                <select id="typeFilter">
+                    <option value="All">All Types</option>
+                    <option value="Income">Income</option>
+                    <option value="Expense">Expense</option>
+                </select>
+            </div>
+
+            <div class="filter">
+                <i data-lucide="filter"></i>
+                <select id="categoryFilter">
+                    <option value="All">All Categories</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- CONTENT -->
+        <section class="content-card">
+            <div id="emptyState">
+                <p>No transactions found</p>
+            </div>
+
+            <table id="transactionTable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th align="right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="expenseTableBody"></tbody>
+            </table>
+        </section>
+
+    </main>
+</div>
+
+<script src="../js/transaction.js"></script>
+<script>lucide.createIcons();</script>
+
+</body>
+</html>

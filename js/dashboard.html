@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Buddy - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-body: #f8fafc;
+            --sidebar-white: #ffffff;
+            --primary-blue: #3b82f6;
+            --danger-red: #ef4444;
+            --success-green: #10b981;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-gray: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); }
+
+        .layout { display: flex; min-height: 100vh; }
+
+        /* --- SIDEBAR (Fixed) --- */
+      /* ===== SIDEBAR UPGRADE ===== */
+
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border-right: 1px solid var(--border-gray);
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 20;
+}
+
+/* Logo */
+.logo-area {
+    padding: 0 0.75rem 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed var(--border-gray);
+}
+.logo-area h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+.logo-area p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Nav list */
+.nav-list {
+    list-style: none;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Nav item wrapper */
+.nav-item {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Anchor reset */
+.nav-item a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.9rem;
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+/* Icon */
+.nav-item a i {
+    width: 18px;
+    height: 18px;
+}
+
+/* Hover */
+.nav-item a:hover {
+    background: #f1f5f9;
+    color: var(--text-main);
+    transform: translateX(3px);
+}
+
+/* Active state */
+.nav-item.active a {
+    background: var(--primary-blue);
+    color: white;
+    box-shadow: 0 10px 20px -8px rgba(59, 130, 246, 0.6);
+}
+
+/* Active indicator bar */
+.nav-item.active a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 80%;
+    width: 4px;
+    background: white;
+    border-radius: 4px;
+}
+
+/* Bottom spacing for logout / future items */
+.nav-list::after {
+    content: "";
+    flex-grow: 1;
+}
+
+        /* --- MAIN AREA --- */
+        .main-content { flex: 1; margin-left: 260px; display: flex; flex-direction: column; }
+
+        /* Top Navigation */
+        .top-nav {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .user-pill { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; }
+        .user-text { text-align: right; line-height: 1.2; }
+        .user-text b { display: block; font-weight: 600; }
+        .user-text small { color: var(--text-muted); }
+
+        /* Dashboard Sections */
+        .dashboard-body { padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+        .welcome-header { margin-bottom: 2rem; }
+        .welcome-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 4px; }
+        .welcome-header p { color: var(--text-muted); }
+
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+        .stat-card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--border-gray); }
+        .icon-circle { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+        
+        .bg-red { background: #fee2e2; color: var(--danger-red); }
+        .bg-green { background: #dcfce7; color: var(--success-green); }
+        .bg-blue { background: #dbeafe; color: var(--primary-blue); }
+
+        .stat-card span { font-size: 0.875rem; color: var(--text-muted); font-weight: 500; }
+        .stat-card h2 { font-size: 1.6rem; margin-top: 6px; font-weight: 700; }
+
+        /* Quick Actions */
+        .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 1.25rem; }
+        .btn-group { display: flex; gap: 12px; margin-bottom: 3rem; }
+        .btn { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.875rem; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn:active { transform: scale(0.97); }
+        
+        .btn-expense { background: var(--danger-red); color: white; }
+        .btn-income { background: var(--success-green); color: white; }
+        .btn-outline { background: white; border: 1px solid var(--border-gray); color: var(--text-main); }
+
+        /* Recent Transactions Area */
+        .transactions-card { background: white; border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border-gray); min-height: 400px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .trans-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .view-all { color: var(--primary-blue); font-size: 0.875rem; text-decoration: none; font-weight: 600; }
+
+        /* Empty State (Screenshot 2 Match) */
+        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 0; text-align: center; color: var(--text-muted); }
+        .empty-state .icon-bg { width: 64px; height: 64px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+        .empty-state i { width: 32px; height: 32px; color: #94a3b8; }
+        .btn-first { background: var(--primary-blue); color: white; padding: 12px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 15px; }
+
+        /* Modal Overlay */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(2px); }
+        .modal { background: white; padding: 2rem; border-radius: 16px; width: 400px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .modal h2 { margin-bottom: 1.5rem; font-size: 1.25rem; }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid var(--border-gray); border-radius: 8px; font-family: inherit; font-size: 0.95rem; }
+
+        /* List Items */
+        .transaction-row { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; border-bottom: 1px solid #f1f5f9; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .row-info { display: flex; align-items: center; gap: 15px; }
+        .delete-btn { color: #cbd5e1; cursor: pointer; transition: 0.2s; }
+        .delete-btn:hover { color: var(--danger-red); }
+        
+        .text-red { color: var(--danger-red); }
+        .text-green { color: var(--success-green); }
+    </style>
+</head>
+<body>
+
+<div class="layout">
+    <aside class="sidebar">
+        <div class="logo-area">
+            <h2>Expense Buddy</h2>
+            <p>Track Smarter</p>
+        </div>
+        <nav class="nav-list">
+       <div class="nav-item active">
+    <a href="dashboard.html">
+        <i data-lucide="layout-grid"></i> Dashboard
+    </a>
+</div>
+
+<div class="nav-item" onclick="openModal()">
+     <a href="add-Transaction.html">
+        <i data-lucide="plus"></i> Add Transaction
+    </a>
+  
+</div>
+
+<div class="nav-item">
+    <a href="transaction.html">
+        <i data-lucide="list"></i> Transactions
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="reports.html">
+        <i data-lucide="pie-chart"></i> Reports
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="budgets.html">
+        <i data-lucide="target"></i> Budgets
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="goals.html">
+        <i data-lucide="trending-up"></i> Goals
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="alerts.html">
+        <i data-lucide="bell"></i> Alerts
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="categories.html">
+        <i data-lucide="tag"></i> Categories
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="export.html">
+        <i data-lucide="download"></i> Export
+    </a>
+</div>
+
+<div class="nav-item">
+    <a href="settings.html">
+        <i data-lucide="settings"></i> Settings
+    </a>
+</div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+     <header class="top-nav">
+    <p id="topNavWelcome" style="font-size: 0.9rem; font-weight: 500;">
+        Welcome back!
+    </p>
+
+    <div class="user-pill">
+        <i data-lucide="bell" style="width: 18px; color: var(--text-muted);"></i>
+
+        <div class="user-text">
+            <b id="pillUserName">User</b>
+            <small id="pillUserEmail">user@email.com</small>
+        </div>
+
+        <i data-lucide="log-out"
+           style="width: 18px; color: var(--text-muted); cursor: pointer;"
+           onclick="logout()"></i>
+    </div>
+</header>
+
+
+      <section class="welcome-header">
+    <h1 id="mainWelcome">Welcome back!</h1>
+    <p>Here's your financial overview</p>
+</section>
+
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="icon-circle bg-red"><i data-lucide="trending-down"></i></div>
+                    <span>Total Expenses</span>
+                    <h2 class="text-red" id="totalExp">$0.00</h2>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-circle bg-green"><i data-lucide="trending-up"></i></div>
+                    <span>Total Income</span>
+                    <h2 class="text-green" id="totalInc">$0.00</h2>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-circle bg-blue"><i data-lucide="wallet"></i></div>
+                    <span>Balance</span>
+                    <h2 id="totalBal" style="color: var(--primary-blue)">$0.00</h2>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-circle bg-green"><i data-lucide="piggy-bank"></i></div>
+                    <span>Savings</span>
+                    <h2 class="text-green" id="totalSav">$0.00</h2>
+                </div>
+            </div>
+
+            <h3 class="section-title">Quick Actions</h3>
+            <div class="btn-group">
+                <button class="btn btn-expense" onclick="openModal('expense')"><i data-lucide="arrow-down-circle"></i> Add Expense</button>
+                <button class="btn btn-income" onclick="openModal('income')"><i data-lucide="arrow-up-circle"></i> Add Income</button>
+                <button class="btn btn-outline"><i data-lucide="file-text"></i> View Reports</button>
+            </div>
+
+            <div class="transactions-card">
+                <div class="trans-header">
+                    <h3 style="font-size: 1.1rem; font-weight: 600;">Recent Transactions</h3>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                <div id="transDisplay">
+                    </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="modal-overlay" id="modal">
+    <div class="modal">
+        <h2>Add Transaction</h2>
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" id="desc" placeholder="e.g. Office Lunch">
+        </div>
+        <div class="form-group">
+            <label>Amount ($)</label>
+            <input type="number" id="amt" placeholder="0.00">
+        </div>
+        <div class="form-group">
+            <label>Type</label>
+            <select id="type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 1rem;">
+            <button class="btn btn-outline" style="flex: 1; justify-content: center;" onclick="closeModal()">Cancel</button>
+            <button class="btn btn-income" style="flex: 2; justify-content: center; background: var(--primary-blue);" onclick="saveData()">Save Transaction</button>
+        </div>
+    </div>
+</div>
+
+<script>
+   
+</script>
+ <script src="../js/dashboard.js"></script>
+</body>
+</html>
